@@ -6,10 +6,34 @@ import EachTask from "../EachTask";
 
 import "./index.css";
 
+const startArr = [
+  {
+    id: uuidV4(),
+    text: "Welcome",
+    position: 1,
+  },
+];
+
 class Home extends Component {
   state = {
     userInput: "",
-    listDetails: JSON.parse(reactLocalStorage.get("task")),
+    listDetails: [],
+  };
+
+  componentDidMount() {
+    this.onGettingTask();
+  }
+
+  onGettingTask = () => {
+    try {
+      this.setState({
+        listDetails: JSON.parse(reactLocalStorage.get("task")),
+      });
+    } catch (error) {
+      this.setState({
+        listDetails: startArr,
+      });
+    }
   };
 
   onUserInput = (e) => {
@@ -78,28 +102,32 @@ class Home extends Component {
 
   onRenderListItems = () => {
     const { listDetails } = this.state;
-    listDetails.sort((a, b) => {
-      return a.position - b.position;
-    });
-    return (
-      <ul className='list-container'>
-        {listDetails.map((eachItem) => (
-          <EachTask
-            key={eachItem.id}
-            data={eachItem}
-            onDeleteTask={this.onDeleteTask}
-            listDetails={listDetails}
-            isUpPosition={this.isUpPosition}
-            isDownPosition={this.isDownPosition}
-          />
-        ))}
-      </ul>
-    );
+
+    try {
+      listDetails.sort((a, b) => {
+        return a.position - b.position;
+      });
+      return (
+        <ul className='list-container'>
+          {listDetails.map((eachItem) => (
+            <EachTask
+              key={eachItem.id}
+              data={eachItem}
+              onDeleteTask={this.onDeleteTask}
+              listDetails={listDetails}
+              isUpPosition={this.isUpPosition}
+              isDownPosition={this.isDownPosition}
+            />
+          ))}
+        </ul>
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   render() {
     const { userInput } = this.state;
-
     return (
       <div className='home-container'>
         {this.onRenderListItems()}

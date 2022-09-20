@@ -1,3 +1,7 @@
+ul {
+  padding-left: 0px;
+}
+
 * {
   box-sizing: border-box;
   font-family: Roboto;
@@ -15,10 +19,22 @@
   border: 1px solid;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px;
+  background-color: #dee5fa;
+  border: none;
+
+  border-radius: 4px;
+  margin-top: 10px;
+  height: 8vh;
+  width: 55vw;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
   background-color: #dee5fa;
   border: none;
   border-radius: 4px;
+  margin: 5px 0;
 }
 .input-container input {
   width: 100%;
@@ -52,7 +68,7 @@
   margin: 5px 0;
 }
 .display-container p {
-  width: 90%;
+  width: 100%;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: capitalize;
